@@ -31,7 +31,19 @@ const store = createStore({
           type: "CLIENT",
         },
       ],
+      searchName: "Hào",
     };
+  },
+  getters: {
+    userListByBoy(state) {
+      return state.userList.filter((user) => user.gender === "Nam");
+    },
+    userListBySearchName(state) {
+      const { userList, searchName } = state;
+      return userList.filter((user) =>
+        user.name.toLowerCase().includes(searchName.toLowerCase())
+      );
+    },
   },
 });
 app.use(store);
