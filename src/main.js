@@ -31,7 +31,7 @@ const store = createStore({
           type: "CLIENT",
         },
       ],
-      searchName: "Hào",
+      searchName: "",
     };
   },
   getters: {
@@ -45,6 +45,12 @@ const store = createStore({
       );
     },
   },
+  mutations: {
+    setSearchNameMutation(state, payload) {
+      state.searchName = payload;
+    },
+  },
+  actions: {},
 });
 app.use(store);
 
