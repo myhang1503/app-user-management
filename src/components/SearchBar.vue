@@ -13,7 +13,7 @@
         <button
           class="btn btn-sm btn-gradient-primary"
           type="button"
-          @click="handleClickSearch"
+          @click="handleClickSearch(searchName)"
         >
           Search
         </button>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   state() {
     return {
@@ -30,9 +31,13 @@ export default {
     };
   },
   methods: {
-    handleClickSearch() {
-      this.$store.commit("setSearchNameMutation", this.searchName);
-    },
+    // handleClickSearch() {
+    //   //this.$store.commit("setSearchNameMutation", this.searchName);
+    //   this.$store.dispatch("setSearchNameAction", this.searchName);
+    // },
+    ...mapActions({
+      handleClickSearch: "setSearchNameAction"
+    })
   },
 };
 </script>

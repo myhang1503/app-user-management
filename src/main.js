@@ -50,7 +50,14 @@ const store = createStore({
       state.searchName = payload;
     },
   },
-  actions: {},
+  actions: {
+    setSearchNameAction(context, payload){
+      setTimeout(()=>{
+        context.commit("setSearchNameMutation", payload);
+      },500)
+      
+    },
+  },
 });
 app.use(store);
 
