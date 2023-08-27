@@ -52,6 +52,14 @@ const store = createStore({
     addUserMutation(state, payload) {
       state.userList.push(payload);
     },
+    removeUserMutation(state, payload) {
+      const index = state.userList.findIndex((user) => user.id === payload);
+      if (index !== -1) {
+        state.userList.splice(index, 1);
+      } else {
+        alert("Not found.");
+      }
+    },
   },
   actions: {
     setSearchNameAction(context, payload) {
@@ -62,6 +70,9 @@ const store = createStore({
     addUserAction(context, payload) {
       const newUser = { ...payload, id: Math.random() };
       context.commit("addUserMutation", newUser);
+    },
+    removeUserAction(context, payload) {
+      context.commit("removeUserMutation", payload);
     },
   },
 });

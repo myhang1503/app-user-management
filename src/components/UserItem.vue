@@ -15,21 +15,51 @@
     </td>
     <td>{{ user.gender }}</td>
     <td>
-      <button type="button" class="mr-2 btn btn-gradient-danger btn-icon-text">
+      <button
+        type="button"
+        class="mr-2 btn btn-gradient-danger btn-icon-text"
+        @click="handleRemove(user.id)"
+      >
         <i class="mdi mdi-delete btn-icon-prepend"></i> Remove
       </button>
-      <button type="button" class="btn btn-gradient-info btn-icon-text">
+      <button
+        type="button"
+        class="btn btn-gradient-info btn-icon-text"
+        @click="handleOpenModalEdit"
+      >
         <i class="mdi mdi-border-color btn-icon-prepend"></i> Edit
       </button>
     </td>
   </tr>
+  <teleport to="#app">
+    <app-modal :isOpen="isOpenEdit" :handelCloseModal="handleCloseModalEdit">
+      <h1>Open</h1>
+    </app-modal>
+  </teleport>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
+  data() {
+    return {
+      isOpenEdit: false,
+    };
+  },
   props: {
     user: {
       type: Object,
+    },
+  },
+  methods: {
+    ...mapActions({
+      handleRemove: "removeUserAction",
+    }),
+    handleCloseModalEdit() {
+      this.isOpenEdit = false;
+    },
+    handleOpenModalEdit() {
+      this.isOpenEdit = true;
     },
   },
 };
