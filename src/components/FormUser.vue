@@ -172,6 +172,11 @@
 <script>
 import { mapActions } from "vuex";
 export default {
+  props:{
+    userInfo:{
+      type: Object,
+    }
+  },
   data() {
     return {
       user: {
@@ -190,6 +195,12 @@ export default {
       handleAddUser: "addUserAction",
     }),
   },
+  created(){
+    //chuyen doi props thanh data
+    if(this.userInfo){
+      this.user = this.userInfo;
+    }
+  }
 };
 </script>
 

@@ -33,14 +33,18 @@
   </tr>
   <teleport to="#app">
     <app-modal :isOpen="isOpenEdit" :handelCloseModal="handleCloseModalEdit">
-      <h1>Open</h1>
+      <form-user :userInfo="user"></form-user>
     </app-modal>
   </teleport>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+import FormUser from "./FormUser.vue";
 export default {
+  components:{
+    FormUser,
+  },
   data() {
     return {
       isOpenEdit: false,
