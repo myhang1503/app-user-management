@@ -60,6 +60,14 @@ const store = createStore({
         alert("Not found.");
       }
     },
+    updateUserMutation(state, payload){
+      const index = state.userList.findIndex((user) => user.id === payload.id);
+      if (index !== -1) {
+        state.userList[index] = payload;
+      } else {
+        alert("Not found.");
+      }
+    }
   },
   actions: {
     setSearchNameAction(context, payload) {
@@ -73,6 +81,9 @@ const store = createStore({
     },
     removeUserAction(context, payload) {
       context.commit("removeUserMutation", payload);
+    },
+    updateUserAction(context, payload){
+      context.commit("updateUserMutation", payload);
     },
   },
 });

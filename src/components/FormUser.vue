@@ -159,7 +159,7 @@
         <button
           type="submit"
           class="btn btn-gradient-primary mr-2"
-          @click.prevent="handleAddUser(user)"
+          @click.prevent="handleSubmit(user)"
         >
           Submit
         </button>
@@ -191,14 +191,22 @@ export default {
     };
   },
   methods: {
+    handleSubmit(){
+      if(this.userInfo){
+        this.handleUpdateUser(this.user);
+      }else{
+        this.handleAddUser(this.user);
+      }
+    },
     ...mapActions({
       handleAddUser: "addUserAction",
+      handleUpdateUser: "updateUserAction",
     }),
   },
   created(){
-    //chuyen doi props thanh data
+    /*chuyen doi props thanh data*/
     if(this.userInfo){
-      this.user = this.userInfo;
+      this.user = {...this.userInfo}; /*es6: copy array to new location, prevent tham chieu*/
     }
   }
 };
