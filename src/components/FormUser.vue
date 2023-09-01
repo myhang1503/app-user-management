@@ -170,12 +170,13 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+const { mapActions } = createNamespacedHelpers("user");
 export default {
-  props:{
-    userInfo:{
+  props: {
+    userInfo: {
       type: Object,
-    }
+    },
   },
   data() {
     return {
@@ -191,10 +192,10 @@ export default {
     };
   },
   methods: {
-    handleSubmit(){
-      if(this.userInfo){
+    handleSubmit() {
+      if (this.userInfo) {
         this.handleUpdateUser(this.user);
-      }else{
+      } else {
         this.handleAddUser(this.user);
       }
     },
@@ -203,12 +204,14 @@ export default {
       handleUpdateUser: "updateUserAction",
     }),
   },
-  created(){
+  created() {
     /*chuyen doi props thanh data*/
-    if(this.userInfo){
-      this.user = {...this.userInfo}; /*es6: copy array to new location, prevent tham chieu*/
+    if (this.userInfo) {
+      this.user = {
+        ...this.userInfo,
+      }; /*es6: copy array to new location, prevent tham chieu*/
     }
-  }
+  },
 };
 </script>
 

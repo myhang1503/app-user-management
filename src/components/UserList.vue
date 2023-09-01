@@ -10,7 +10,9 @@
 
 <script>
 import UserItem from "./UserItem.vue";
-import { mapGetters, mapState } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters, mapState, mapActions } = createNamespacedHelpers("user");
+/*import { mapGetters, mapState } from "vuex";*/
 
 export default {
   components: {
@@ -41,6 +43,14 @@ export default {
     }),
   },
   //computed: mapState(["userList"]), //cach viet khac
+  methods: {
+    ...mapActions({
+      getAllUser: "getAllUserAction",
+    }),
+  },
+  created() {
+    this.getAllUser();
+  },
 };
 </script>
 

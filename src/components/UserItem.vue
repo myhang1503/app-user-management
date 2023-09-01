@@ -39,10 +39,11 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+const { mapActions } = createNamespacedHelpers("user");
 import FormUser from "./FormUser.vue";
 export default {
-  components:{
+  components: {
     FormUser,
   },
   data() {
