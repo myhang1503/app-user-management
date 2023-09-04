@@ -1,4 +1,9 @@
-import { createUserApi, getAllUserApi } from "../../api/users";
+import {
+  createUserApi,
+  getAllUserApi,
+  removeUserApi,
+  updateUserApi,
+} from "../../api/users";
 
 const state = () => {
   return {
@@ -83,11 +88,15 @@ const actions = {
     // context.commit("addUserMutation", newUser);
     context.dispatch("getAllUserAction");
   },
-  removeUserAction(context, payload) {
-    context.commit("removeUserMutation", payload);
+  async removeUserAction(context, payload) {
+    await removeUserApi(payload);
+    context.dispatch("getAllUserAction");
+    //context.commit("removeUserMutation", payload);
   },
-  updateUserAction(context, payload) {
-    context.commit("updateUserMutation", payload);
+  async updateUserAction(context, payload) {
+    //context.commit("updateUserMutation", payload);
+    await updateUserApi(payload);
+    context.dispatch("getAllUserAction");
   },
 };
 

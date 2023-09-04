@@ -19,3 +19,20 @@ export const createUserApi = async (user) => {
   });
   return res.data;
 };
+
+export const removeUserApi = async (id) => {
+  const res = await axios({
+    method: "DELETE",
+    url: `https://64f1f58f0e1e60602d247e93.mockapi.io/users/${id}`,
+  });
+  return res;
+};
+
+export const updateUserApi = async (user) => {
+  const res = await axios({
+    method: "PUT",
+    url: `https://64f1f58f0e1e60602d247e93.mockapi.io/users/${user.id}`,
+    data: user,
+  });
+  return res;
+};
