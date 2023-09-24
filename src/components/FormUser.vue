@@ -170,48 +170,90 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
-const { mapActions } = createNamespacedHelpers("user");
+import { reactive, toRefs } from "vue";
+import { useStore } from "vuex";
+//import { createNamespacedHelpers, useStore } from "vuex";
+//const { mapActions } = createNamespacedHelpers("user");
 export default {
   props: {
     userInfo: {
       type: Object,
     },
   },
-  data() {
+  setup(props) {
+    const { userInfo } = toRefs(props);
+    const store = useStore();
+    let user = reactive({
+      name: "",
+      avatar: "",
+      age: 0,
+      description: "",
+      programmingLanguage: [],
+      gender: "Nam",
+      type: "CLIENT",
+    });
+    /*chuyen doi props thanh reactive */
+    if (userInfo.value) {
+      user.name = userInfo.name;
+      user.avatar = userInfo.avatar;
+      user.age = userInfo.age;
+      user.description = userInfo.description;
+      user.programmingLanguage = userInfo.programmingLanguage;
+      user.gender = userInfo.gender;
+      user.type = userInfo.type;
+    }
+    function handleUpdateUser(user) {
+      store.dispatch("user/updateUserAction", user);
+    }
+    function handleAddUser(user) {
+      store.dispatch("user/addUserAction", user);
+    }
+    function handleSubmit() {
+      if (userInfo.value) {
+        handleUpdateUser(user);
+      } else {
+        handleAddUser(user);
+      }
+    }
     return {
-      user: {
-        name: "",
-        avatar: "",
-        age: 0,
-        description: "",
-        programmingLanguage: [],
-        gender: "Nam",
-        type: "CLIENT",
-      },
+      user,
+      handleSubmit,
     };
   },
-  methods: {
-    handleSubmit() {
-      if (this.userInfo) {
-        this.handleUpdateUser(this.user);
-      } else {
-        this.handleAddUser(this.user);
-      }
-    },
-    ...mapActions({
-      handleAddUser: "addUserAction",
-      handleUpdateUser: "updateUserAction",
-    }),
-  },
-  created() {
-    /*chuyen doi props thanh data*/
-    if (this.userInfo) {
-      this.user = {
-        ...this.userInfo,
-      }; /*es6: copy array to new location, prevent tham chieu*/
-    }
-  },
+  // data() {
+  //   return {
+  //     user: {
+  //       name: "",
+  //       avatar: "",
+  //       age: 0,
+  //       description: "",
+  //       programmingLanguage: [],
+  //       gender: "Nam",
+  //       type: "CLIENT",
+  //     },
+  //   };
+  // },
+  // methods: {
+  //   handleSubmit() {
+  //     if (this.userInfo) {
+  //       this.handleUpdateUser(this.user);
+  //     } else {
+  //       this.handleAddUser(this.user);
+  //     }
+  //   },
+  //   ...mapActions({
+  //     handleAddUser: "addUserAction",
+  //     handleUpdateUser: "updateUserAction",
+  //   }),
+  // },
+  // created() {
+  //   /*chuyen doi props thanh data*/
+  //   if (this.userInfo) {
+  //     this.user = {
+  //       ...this.userInfo,
+  //     }; /*es6: copy array to new location, prevent tham chieu*/
+  //   }
+  // },
 };
 </script>
 
